@@ -26,8 +26,7 @@ def main():
     print([proc.current_depth for proc in processes])
     sys.setrecursionlimit(1100)
     grapher: Grapher = Grapher()
-    grapher.add_processes(processes)
-    grapher.draw()
+    grapher.draw_processes(processes)
 
 
 if __name__ == '__main__':
