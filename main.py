@@ -1,5 +1,4 @@
 #! ./venv/bin/python3
-import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
 from typing import List
@@ -24,7 +23,6 @@ def main():
         ftrace_parser.include_processes_with_prefix(prefix)
     processes: List[Process] = ftrace_parser.parse()
     print([proc.current_depth for proc in processes])
-    sys.setrecursionlimit(1100)
     grapher: Grapher = Grapher()
     grapher.draw_processes(processes)
 

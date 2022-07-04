@@ -14,15 +14,17 @@ class Grapher:
 
     def draw_processes(self, processes: List[Process]):
         for proc in processes:
-            # TODO: Make iterative to reduce stack overflows
             self.process_edges[proc] = []
-            self._recurse_add_children(proc, proc)
-            self._draw_process(proc)
 
-    def _recurse_add_children(self, proc: Process, parent: Union[Process, FunctionCall]):
-        for child in parent.children:
-            self.process_edges[proc].append((parent, child))
-            self._recurse_add_children(proc, child)
+            # Iterative DFS (no marking as call graphs are trees)
+            work_stack = [proc]
+            while len(work_stack):
+                parent = work_stack.pop()
+                for child in parent.children:
+                    self.process_edges[proc].append((parent, child))
+                    work_stack.append(child)
+
+            self._draw_process(proc)
 
     def _draw_process(self, proc: Process):
         graph = nx.DiGraph()
