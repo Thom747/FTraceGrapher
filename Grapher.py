@@ -25,13 +25,15 @@ class Grapher:
                     work_stack.append(child)
 
             self._draw_process(proc)
+        plt.show()
 
     def _draw_process(self, proc: Process):
+        fig: plt.Figure = plt.figure()
+        fig.canvas.set_window_title(proc.name)
         graph = nx.DiGraph()
         graph.add_edges_from(self.process_edges[proc])
         positions = hierarchy_pos(graph, root=proc)
         nx.draw_networkx(graph, positions)
-        plt.show()
 
 
 def hierarchy_pos(G, root=None, width=1., vert_gap=0.2, vert_loc=0, xcenter=0.5):
